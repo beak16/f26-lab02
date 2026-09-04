@@ -16,7 +16,7 @@ public class AvailabilityCalculator {
      * in order. Bookings may be unsorted, may overlap each other, and may extend
      * outside business hours; they are clipped to the day and merged.
      */
-    public List<TimeInterval> freeSlots(int dayStart, int dayEnd, List<TimeInterval> bookings) {
+    public List<TimeInterval> freeSlots(int dayStart, int dayEnd, List<TimeInterval> bookings) { //
         List<TimeInterval> clipped = new ArrayList<>();
         for (TimeInterval b : bookings) {
             int s = Math.max(b.start(), dayStart);
@@ -29,12 +29,13 @@ public class AvailabilityCalculator {
 
         List<TimeInterval> free = new ArrayList<>();
         int cursor = dayStart;
-        for (TimeInterval b : clipped) {
+        for (TimeInterval b : clipped) { // not executed if boookings is empty
             if (b.start() > cursor) {
                 free.add(new TimeInterval(cursor, b.start()));
             }
             cursor = Math.max(cursor, b.end());
         }
+        // fixed in Milestone 2
         if (cursor < dayEnd) {
             free.add(new TimeInterval(cursor, dayEnd));
         }
